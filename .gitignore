@@ -1,13 +1,14 @@
 # Simulation outputs
+*.out
+*.vvp
 *.vcd
 *.log
-*.out
 
 # GTKWave
 *.gtkw
 
-# Temporary files
-*.tmp
+# VS Code
+.vscode/
 
 # OS files
 .DS_Store
