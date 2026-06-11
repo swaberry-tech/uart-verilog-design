@@ -27,7 +27,7 @@ results/  Simulation results
 ## Quick Start
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/swaberry-tech/uart-verilog-design>
 cd uart-verilog-design
 
 make tx
