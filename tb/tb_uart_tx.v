@@ -7,6 +7,7 @@ module uart_tx_tb;
     reg rst_n;
     reg tx_start;
     reg [7:0] tx_data;
+    reg [1:0] state;
 
     // Outputs
     wire baud_tick;
