@@ -1,4 +1,4 @@
-module tranx (
+module uart_tx (
     input clk,
     input rst_n,
     input baud_tick,
@@ -22,16 +22,15 @@ module tranx (
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             state       <= IDLE;
-            tx          <= 1'b1;      // UART line is idle high
+            shift_reg   <= 8'd0;
+            bit_counter <= 3'd0;
+            tx          <= 1'b1;
             tx_busy     <= 1'b0;
-            shift_reg   <= 8'b0;
-            bit_counter <= 3'b0;
         end
-
-        else if (baud_tick) begin
+        else begin
             case (state)
 
-                //--------------------------------------------------
+                //==================================================
                 IDLE: begin
                     tx <= 1'b1;
                     tx_busy <= 1'b0;
@@ -44,27 +43,39 @@ module tranx (
                     end
                 end
 
-                //--------------------------------------------------
+                //==================================================
                 START: begin
-                    tx <= 1'b0;            // Start bit
-                    state <= DATA;
+                    tx <= 1'b0;
+
+                    if (baud_tick)
+                        state <= DATA;
                 end
 
-                //--------------------------------------------------
+                //==================================================
                 DATA: begin
-                    tx <= shift_reg[0];    // Send LSB first
-                    shift_reg <= shift_reg >> 1;
+                    tx <= shift_reg[0];
 
-                    if (bit_counter == 3'd7)
-                        state <= STOP;
-                    else
-                        bit_counter <= bit_counter + 1;
+                    if (baud_tick) begin
+                        shift_reg <= shift_reg >> 1;
+
+                        if (bit_counter == 3'd7)
+                            state <= STOP;
+                        else
+                            bit_counter <= bit_counter + 1;
+                    end
                 end
 
-                //--------------------------------------------------
+                //==================================================
                 STOP: begin
-                    tx <= 1'b1;            // Stop bit
-                    tx_busy <= 1'b0;
+                    tx <= 1'b1;
+
+                    if (baud_tick) begin
+                        tx_busy <= 1'b0;
+                        state <= IDLE;
+                    end
+                end
+
+                default: begin
                     state <= IDLE;
                 end
 

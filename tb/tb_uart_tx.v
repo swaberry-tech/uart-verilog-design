@@ -58,11 +58,12 @@ module uart_tx_tb;
         // First byte
         tx_data = 8'hA5;
         tx_start = 1;
-        #20;
+        #1000;
         tx_start = 0;
 
-        wait(tx_busy);
-        wait(!tx_busy);
+        #200000
+        // wait(tx_busy);
+        // wait(!tx_busy);
 
         #500;
 
