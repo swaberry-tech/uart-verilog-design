@@ -21,7 +21,7 @@ module uart_tx_tb;
     );
 
     // UART Transmitter
-    tranx u_tx (
+    uart_tx u_tx (
         .clk(clk),
         .rst_n(rst_n),
         .baud_tick(baud_tick),
