@@ -43,7 +43,7 @@ module uart_tx_tb;
         $dumpvars(0, uart_tx_tb);
     end
 
-    // Test sequence
+    // Test sequence 
     initial begin
 
         rst_n = 0;
@@ -62,8 +62,8 @@ module uart_tx_tb;
         tx_start = 0;
 
         #200000
-        // wait(tx_busy);
-        // wait(!tx_busy);
+        // wait(tx_busy);  /// Transmitter stopped working when non commented out 
+        // wait(!tx_busy); /// Analyze reason
 
         #500;
 

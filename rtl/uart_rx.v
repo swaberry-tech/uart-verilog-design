@@ -3,8 +3,7 @@ module uart_rx#(
     parameter BAUD_RATE = 115_200     // Baud rate 
 )(
     input clk ,
-    input rst_n ,
-    input baud_tick ,
+    input rst_n,
     
     input rx ,
 
@@ -54,7 +53,7 @@ module uart_rx#(
                 end
 
                 DATA : begin 
-                    if(count == BAUD_COUNT - 1) begin
+                    if(counter == BAUD_COUNT - 1) begin
                         counter <= 16'd0 ; 
                         shift_reg [bit_counter] <= rx ;
                         if(bit_counter == 3'd7) begin
@@ -74,7 +73,9 @@ module uart_rx#(
                             rx_done <= 1'b1;
                         end
                         state <= IDLE;
-                        else counter <= counter + 1'b1 ;
+                    end
+                    else begin 
+                        counter <= counter + 1'b1 ;
                     end
                 end
             endcase

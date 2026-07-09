@@ -62,7 +62,7 @@ module uart_rx_tb;
     initial begin
 
         $dumpfile("waves/uart_rx.vcd");
-        $dumpvars(0,tb_uart_rx);
+        $dumpvars(0,uart_rx_tb);
 
         clk = 0;
         rst_n = 0;
