@@ -148,9 +148,9 @@ Displays all supported Makefile targets.
 ## Milestones
 
 - [x] Repository Setup
-- [ ] Baud Generator
-- [ ] UART TX
-- [ ] UART RX
-- [ ] Loopback Test
+- [x] Baud Generator
+- [x] UART TX
+- [x] UART RX
+- [x] Loopback Test
 - [ ] Parity Support
 - [ ] FIFO Support
