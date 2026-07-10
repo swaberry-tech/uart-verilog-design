@@ -16,12 +16,22 @@ module uart_top #(
     output [7:0] rx_data,
     output rx_done
 );
-    uart_tx #(
-        .CLK_FREQ(CLK_FREQ) ,
+
+wire baud_tick ;
+
+    baud_gen #(
+        .CLK_FREQ(CLK_FREQ),
         .BAUD_RATE(BAUD_RATE)
-    ) transmitter (
+    ) baud_generator (
+        .clk(clk),
+        .rst_n(rst_n),
+        .baud_tick(baud_tick)
+    );
+
+    uart_tx transmitter (
          .clk(clk),
          .rst_n(rst_n),
+         .baud_tick(baud_tick),
 
          .tx_start(tx_start),
          .tx_data(tx_data),

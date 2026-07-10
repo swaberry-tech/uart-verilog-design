@@ -71,6 +71,13 @@ initial begin
 
     wait(rx_done);
 
+    if (rx_data == 8'hA5)
+        $display("PASS: Received A5");
+    else
+        $display("FAIL: Expected A5, Got %h", rx_data);
+
+    wait(!tx_busy);
+
     // Send 3C
     @(posedge clk);
     tx_data = 8'h3C;
@@ -80,6 +87,11 @@ initial begin
     tx_start = 0;
 
     wait(rx_done);
+ 
+     if (rx_data == 8'h3C)
+        $display("PASS: Received 3C");
+    else
+        $display("FAIL: Expected 3C, Got %h", rx_data);
 
     #1000;
 
